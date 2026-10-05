@@ -4,36 +4,42 @@
  * Copyright 2023 Taras Shabaranskyi
  * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
 
-import {Component, useState} from "@odoo/owl";
+import {Component, proxy, signal} from "@odoo/owl";
 import {useAutofocus, useService} from "@web/core/utils/hooks";
 
 /**
  * @extends Component
- * @property {{el: HTMLInputElement}} searchBarInput
  */
 export class AppsMenuOdooSearchBar extends Component {
+    searchBarInput = signal.ref();
+
     setup() {
         super.setup();
-        this.state = useState({
+        this.state = proxy({
             rootItems: [],
             subItems: [],
             offset: 0,
             hasResults: false,
         });
-        this.searchBarInput = useAutofocus({refName: "SearchBarInput"});
+        useAutofocus({ref: this.searchBarInput});
         this.command = useService("command");
+    }
+
+    get searchBarEl() {
+        const ref = this.searchBarInput;
+        return typeof ref === "function" ? ref() : ref?.el;
     }
 
     /**
      * @returns {String}
      */
     get inputValue() {
-        const {el} = this.searchBarInput;
+        const el = this.searchBarEl;
         return el ? el.value : "";
     }
 
     set inputValue(value) {
-        const {el} = this.searchBarInput;
+        const el = this.searchBarEl;
         if (el) {
             el.value = value;
         }

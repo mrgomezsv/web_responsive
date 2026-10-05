@@ -14,10 +14,10 @@
             <attribute name="t-att-class">rootClass</attribute>
             <attribute name="t-ref">root</attribute>
         </xpath>
-        <xpath expr="//iframe[@t-ref='iframeViewerPdf']" position="attributes">
+        <xpath expr="//iframe[contains(@t-ref, 'iframeViewerPdf')]" position="attributes">
             <attribute name="class" add="o-FileViewer-viewPdf" separator=" " />
         </xpath>
-        <xpath expr="//div[@t-on-click.stop='close']" position="before">
+        <xpath expr="//div[@t-on-click.stop='close' or @t-on-click.stop='this.close']" position="before">
             <t t-if="state.allowMinimize">
                 <div
                     t-if="!state.maximized"
