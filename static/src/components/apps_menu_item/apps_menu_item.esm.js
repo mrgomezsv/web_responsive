@@ -33,7 +33,11 @@ export class AppMenuItem extends Component {
         this.webIconData = getWebIconData(nextProps.app);
     }
 
-    onClick() {
+    onClick(ev) {
+        // Igual que DropdownItem de Odoo: sin preventDefault el router de Odoo también
+        // navega por el href y se lanzan dos navegaciones a la vez (p. ej. desde Ajustes
+        // con cambios sin guardar el estado del router y la pantalla quedan desincronizados).
+        ev?.preventDefault();
         if (typeof this.props.onClick === "function") {
             this.props.onClick(this.props.app);
         }

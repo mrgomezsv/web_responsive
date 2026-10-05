@@ -85,8 +85,11 @@ export class AppsMenu extends Component {
      * Setup navigation among app menus
      */
     _setupKeyNavigation() {
+        // Solo con el menú abierto: si no, las flechas y Escape se capturan en cualquier pantalla
+        const isAvailable = () => this.state.open;
         const repeatable = {
             allowRepeat: true,
+            isAvailable,
         };
         useHotkey(
             "ArrowRight",
@@ -116,9 +119,26 @@ export class AppsMenu extends Component {
             },
             repeatable
         );
-        useHotkey("Escape", () => {
-            this.env.bus.trigger("ACTION_MANAGER:UI-UPDATED");
-        });
+        useHotkey(
+            "Escape",
+            () => {
+                this.setOpenState(false);
+            },
+            {isAvailable}
+        );
+    }
+
+    /**
+     * Al elegir una app o un resultado de búsqueda se cierra el menú de inmediato, como el
+     * menú estándar de Odoo. Antes quedaba abierto hasta que terminara de cargar la nueva
+     * pantalla; si la carga se detenía (p. ej. Ajustes con cambios sin guardar) el menú
+     * seguía encima mientras Odoo seguía en la pantalla anterior.
+     * @param {MouseEvent} ev
+     */
+    onContainerClick(ev) {
+        if (ev.target.closest("a[href]")) {
+            this.setOpenState(false);
+        }
     }
 
     _onWindowKeydown(direction) {

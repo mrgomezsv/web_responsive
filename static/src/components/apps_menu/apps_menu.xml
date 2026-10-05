@@ -48,7 +48,7 @@
             >
                 <i class="oi fs-4" data-icon="apps" aria-hidden="true" />
             </button>
-            <div t-if="this.state.open" class="app-menu-container">
+            <div t-if="this.state.open" class="app-menu-container" t-on-click="this.onContainerClick">
                 <t t-call-slot="search_bar" />
                 <div class="o-app-menu-list">
                     <t t-call-slot="default" />
