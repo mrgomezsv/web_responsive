@@ -7,26 +7,26 @@
 <templates>
     <t t-name="web_responsive.AppMenuItem">
         <a
-            t-att-class="this.className"
+            t-att-class="className"
             role="button"
-            t-att-data-menu-xmlid="this.props.app.xmlid"
-            t-att-href="this.props.href"
-            t-on-click="this.onClick"
+            t-att-data-menu-xmlid="props.app.xmlid"
+            t-att-href="props.href"
+            t-on-click="onClick"
             draggable="false"
         >
             <div
                 class="position-relative o_app"
-                t-att-data-menu-xmlid="this.props.app.xmlid"
+                t-att-data-menu-xmlid="props.app.xmlid"
             >
                 <img
                     class="o-app-menu-item__icon rounded-3"
                     draggable="false"
-                    t-att-src="this.webIconData"
+                    t-att-src="webIconData"
                 />
-                <i t-if="this.isActive" class="fa fa-check-circle o-app-menu-item__active" />
+                <i t-if="isActive" class="fa fa-check-circle o-app-menu-item__active" />
             </div>
-            <span class="o-app-menu-item__name" t-att-title="this.props.app.name">
-                <t t-out="this.props.app.name" />
+            <span class="o-app-menu-item__name" t-att-title="props.app.name">
+                <t t-out="props.app.name" />
             </span>
         </a>
     </t>

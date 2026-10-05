@@ -12,9 +12,9 @@
                 <i class="fa fa-search search-icon fs-4 my-auto d-none d-sm-flex" />
                 <input
                     type="search"
-                    t-ref="this.searchBarInput"
-                    t-on-input="this._onSearchInput"
-                    t-on-click="this._onSearchClick"
+                    t-ref="SearchBarInput"
+                    t-on-input="_onSearchInput"
+                    t-on-click="_onSearchClick"
                     autocomplete="off"
                     placeholder="Search menus..."
                     class="form-control"

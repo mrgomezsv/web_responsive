@@ -5,9 +5,9 @@
     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 -->
 <templates id="template" xml:space="preserve">
-    <t t-inherit="web.NavBar.SectionsMenu" t-inherit-mode="extension">
+    <t t-inherit="web.NavBar.SectionsMenu" t-inherit-mode="extension" owl="1">
         <xpath
-            expr="//t[@t-foreach='sections']//t[@t-if]//t[@t-set='hotkey']"
+            expr="//t[@t-foreach='sections']//t[@t-set='hotkey']"
             position="attributes"
         >
             <attribute
@@ -15,7 +15,7 @@
             >'shift+' + ((section_index + 1) % 10).toString()</attribute>
         </xpath>
         <xpath
-            expr="//t[contains(@t-if, 'currentAppSectionsExtra.length')]//t[@t-set='hotkey']"
+            expr="//t[@t-if='currentAppSectionsExtra.length']//t[@t-set='hotkey']"
             position="attributes"
         >
             <attribute
