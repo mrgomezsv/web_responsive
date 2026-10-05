@@ -46,7 +46,7 @@
                 data-hotkey="h"
                 t-on-click.stop="this.onMenuClick"
             >
-                <i class="oi oi-apps fs-4" />
+                <i class="oi fs-4" data-icon="apps" aria-hidden="true" />
             </button>
             <div t-if="this.state.open" class="app-menu-container">
                 <t t-call-slot="search_bar" />
@@ -85,7 +85,7 @@
                 class="o_mobile_menu_toggle o_nav_entry o-no-caret d-md-none border-0 pe-3"
                 t-on-click.prevent="this._openAppMenuSidebarMobile"
             >
-                <i class="oi oi-panel-right" />
+                <i class="oi" data-icon="menu" aria-hidden="true" />
             </button>
         </xpath>
     </t>
