@@ -28,20 +28,27 @@ patch(WebClient.prototype, {
             document.body.classList.toggle("o_apps_menu_opened", state);
         });
         this.user = user;
+        this.orm = useService("orm");
         onWillStart(async () => {
-            const is_redirect_home = await this.orm.searchRead(
-                "res.users",
-                [["id", "=", this.user.userId]],
-                ["is_redirect_home"]
-            );
-            user.updateContext({
-                is_redirect_to_home: is_redirect_home[0]?.is_redirect_home,
-            });
+            try {
+                if (this.user?.userId) {
+                    const is_redirect_home = await this.orm.searchRead(
+                        "res.users",
+                        [["id", "=", this.user.userId]],
+                        ["is_redirect_home"]
+                    );
+                    user.updateContext({
+                        is_redirect_to_home: is_redirect_home?.[0]?.is_redirect_home || false,
+                    });
+                }
+            } catch (e) {
+                console.warn("web_responsive: Could not load is_redirect_home", e);
+            }
         });
         this.redirect = false;
     },
     _loadDefaultApp() {
-        if (user.context.is_redirect_to_home) {
+        if (user.context?.is_redirect_to_home) {
             this.env.bus.trigger("APPS_MENU:STATE_CHANGED", true);
         } else {
             super._loadDefaultApp();
