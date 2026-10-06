@@ -17,7 +17,7 @@
         as the default one took physical place in the DOM -->
         <xpath expr="//Dropdown" position="replace">
             <t t-if="this.ui.isSmall">
-                <t t-call="web.NavBar.AppsMenu.Sidebar" />
+                <t t-call="web.NavBar.AppsMenu.Sidebar" apps="apps" />
             </t>
             <t t-else="" />
             <AppsMenu>

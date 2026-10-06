@@ -13,7 +13,7 @@ export class AppMenuItem extends Component {
     setup() {
         super.setup();
         this.webIconData = getWebIconData(this.props.app);
-        onWillUpdateProps(this.onUpdateProps);
+        onWillUpdateProps((nextProps) => this.onUpdateProps(nextProps));
     }
 
     get isActive() {

@@ -48,7 +48,7 @@ export const unpatchFileViewer = patch(FileViewer.prototype, {
             maximized: true,
         });
         useFileViewerContainerSize(this.root);
-        onWillStart(this.setDefaultMaximizeState);
+        onWillStart(() => this.setDefaultMaximizeState());
     },
 
     get rootClass() {

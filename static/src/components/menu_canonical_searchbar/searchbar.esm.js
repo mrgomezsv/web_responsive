@@ -37,8 +37,8 @@ export class AppsMenuCanonicalSearchBar extends Component {
         this.menuService = useService("menu");
         this.rootMenuItems = this.getRootMenuItems();
         this.subMenuItems = this.getSubMenuItems();
-        onWillPatch(this._computeResultOffset);
-        onPatched(this._scrollToHighlight);
+        onWillPatch(() => this._computeResultOffset());
+        onPatched(() => this._scrollToHighlight());
     }
 
     get searchBarEl() {

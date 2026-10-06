@@ -7,8 +7,10 @@
 <templates>
     <!-- Search bar -->
     <t t-name="web_responsive.AppsMenuSearchBar">
-        <AppsMenuCanonicalSearchBar t-if="this.searchType==='canonical'" />
-        <AppsMenuOdooSearchBar t-if="this.searchType==='command_palette'" />
-        <AppsMenuFuseSearchBar t-if="this.searchType==='fuse'" />
+        <div class="o_apps_menu_searchbar">
+            <AppsMenuCanonicalSearchBar t-if="this.searchType==='canonical'" />
+            <AppsMenuOdooSearchBar t-if="this.searchType==='command_palette'" />
+            <AppsMenuFuseSearchBar t-if="this.searchType==='fuse'" />
+        </div>
     </t>
 </templates>
