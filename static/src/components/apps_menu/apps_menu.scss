@@ -5,6 +5,7 @@
 
 :root {
     .o_grid_apps_menu[data-theme="milk"] {
+        --app-menu-bg-color: #{$app-menu-background-color};
         --app-menu-background:
             url("../../img/home-menu-bg-overlay.svg"),
             linear-gradient(
@@ -15,6 +16,7 @@
     }
 
     .o_grid_apps_menu[data-theme="community"] {
+        --app-menu-bg-color: #{$o-brand-primary};
         --app-menu-background:
             url("../../img/home-menu-bg-overlay.svg"),
             linear-gradient(
@@ -28,19 +30,23 @@
 @mixin full-screen-dropdown {
     border: none;
     box-shadow: none;
-    height: 100%;
-    max-height: calc(var(--vh100, 100vh) - #{$o-navbar-height});
-    max-height: calc(100dvh - #{$o-navbar-height});
     position: fixed;
+    top: var(--o-navbar-height, #{$o-navbar-height}) !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
     margin: 0;
     width: 100vw;
-    z-index: 1000;
-    left: 0 !important;
+    height: calc(100vh - var(--o-navbar-height, #{$o-navbar-height})) !important;
+    height: calc(100dvh - var(--o-navbar-height, #{$o-navbar-height})) !important;
+    max-height: calc(100dvh - var(--o-navbar-height, #{$o-navbar-height})) !important;
+    z-index: 1024 !important;
 }
 
 .o_apps_menu_opened .o_main_navbar {
     .o_menu_brand,
-    .o_menu_sections {
+    .o_menu_sections,
+    .o_navbar_breadcrumbs {
         display: none !important;
     }
 }
@@ -71,42 +77,56 @@
 
     .o-app-menu-list {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
         width: 100%;
-        gap: 0.25rem;
+        max-width: 960px;
+        margin: 0 auto;
+        gap: 0.75rem 0.5rem;
+        justify-content: center;
 
         @include media-breakpoint-up(sm) {
-            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+            gap: 1.25rem 0.75rem;
         }
     }
 }
 
 .app-menu-container {
     @include full-screen-dropdown();
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     background-clip: border-box;
-    padding: 1rem 0.5rem;
-    gap: 1rem;
+    padding: 1.75rem 1.25rem 2.5rem;
+    background-color: var(--app-menu-bg-color, #{$app-menu-background-color});
     background: var(--app-menu-background);
     background-size: cover;
+    background-position: center top;
     border-radius: 0;
-    // Display apps in a grid
     align-content: flex-start;
     display: flex !important;
-    z-index: 1024 !important;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
     justify-content: flex-start;
+    gap: 1.5rem;
+
+    // Search bar wrapper
+    .o_apps_menu_searchbar {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
 
     // Hide app icons when searching
+    &:has(.has-results) .o-app-menu-list,
+    .o_apps_menu_searchbar:has(.has-results) ~ .o-app-menu-list,
     .has-results ~ .o-app-menu-list {
-        display: none;
+        display: none !important;
     }
 
     @include media-breakpoint-up(lg) {
         padding: {
-            left: calc((100vw - 850px) / 2);
-            right: calc((100vw - 850px) / 2);
+            left: max(1.5rem, calc((100vw - 960px) / 2));
+            right: max(1.5rem, calc((100vw - 960px) / 2));
         }
     }
 }

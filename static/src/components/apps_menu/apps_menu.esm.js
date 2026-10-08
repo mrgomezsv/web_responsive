@@ -69,6 +69,10 @@ export class AppsMenu extends Component {
             this.router = router;
             const menuId = Number(this.router.current.menu_id || 0);
             this.state.open = menuId === 0;
+            if (this.state.open) {
+                this.env.bus.trigger("APPS_MENU:STATE_CHANGED", true);
+                document.body.classList.add("o_apps_menu_opened");
+            }
         }
         useBus(this.env.bus, "ACTION_MANAGER:UI-UPDATED", () => {
             this.setOpenState(false);
@@ -79,6 +83,7 @@ export class AppsMenu extends Component {
     setOpenState(open_state) {
         this.state.open = open_state;
         this.env.bus.trigger("APPS_MENU:STATE_CHANGED", open_state);
+        document.body.classList.toggle("o_apps_menu_opened", Boolean(open_state));
     }
 
     /**
