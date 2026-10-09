@@ -190,7 +190,8 @@ body:not(.o_statusbar_buttons) {
 @include media-breakpoint-up(md) {
     .app_settings_block > h2,
     .app_settings_block > div > h2 {
-        @include o-position-sticky(0);
+        position: sticky;
+        top: 0;
         z-index: 10;
     }
 }
